@@ -1,0 +1,6 @@
+read:
+  - CONTEXT.md
+  - context/*.md
+
+edit:
+  - src/main/java/**/*.java
