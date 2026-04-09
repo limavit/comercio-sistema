@@ -5,5 +5,4 @@ read:
   - prompts/*.md
   - schemas/*.sql
 
-edit:
-  - src/main/java/**/*.java
+
