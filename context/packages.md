@@ -1,3 +1,5 @@
+Pacotes do sistema:
+
 br.com.sistema.comercio
 
 controller
@@ -6,3 +8,4 @@ repository
 domain.model
 dto
 config
+mapper

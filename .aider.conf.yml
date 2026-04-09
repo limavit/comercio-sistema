@@ -1,6 +1,9 @@
 read:
   - CONTEXT.md
   - context/*.md
+  - docs/*.md
+  - prompts/*.md
+  - schemas/*.sql
 
 edit:
   - src/main/java/**/*.java
