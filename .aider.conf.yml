@@ -1,8 +1,32 @@
+model: openrouter/z-ai/glm-4.5-air:free
+#fallback-model: ollama/deepseek-coder:6.7b
+
+edit-format: diff
+
+extra-params:
+  temperature: 0.2
+
+
 read:
   - CONTEXT.md
-  - context/*.md
-  - docs/*.md
-  - prompts/*.md
-  - schemas/*.sql
+  - README.md
+  - context/architecture.md
+  - context/conventions.md
+  - context/database.md
+  - context/endpoints.md
+  - context/packages.md
+  - context/sync.md
+  - docs/entidades.md
+  - docs/fluxos.md
+  - docs/regras-negocio.md
+  - docs/relacionamentos.md
+  - prompts/coding_rules.md
+  - schemas/database.sql
 
+map-tokens: 4096
 
+auto-commits: false
+auto-lint: true
+auto-test: true
+
+cache-prompts: true
