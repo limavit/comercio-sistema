@@ -32,9 +32,30 @@ O projeto segue a seguinte estrutura de pacotes:
 - **Empresa**: Cadastro de empresas com CNPJ e status
 - **Produto**: Cadastro de produtos com nome, preço e categoria
 
-## Desenvolvimento com Aider
+## Evolução dos Modelos LLM
 
-Este projeto está sendo desenvolvido em parceria com a ferramenta **Aider**, uma inteligência artificial que auxilia no desenvolvimento de código. O Aider ajuda na:
+Este projeto utiliza a ferramenta **Aider** para desenvolvimento em parceria com modelos de linguagem (LLM). Durante o desenvolvimento, foram testados diferentes modelos gratuitos:
+
+1. **deepseek-coder:6.7b** - Modelo inicial, executado localmente
+2. **qwen2.5-coder:7b** - Segunda versão, também local
+3. **qwen2.5-coder:3b** - Versão mais leve e rápida
+4. **z-ai/glm-4.5-air:free** - Modelo atual, utilizado via API
+
+Todos os modelos são gratuitos e a escolha foi baseada em custo-benefício, performance e disponibilidade. A ideia do projeto é demonstrar uma experiência de aprendizado com IA de baixo custo, utilizando ferramentas acessíveis para desenvolvimento de software.
+
+## O que é o Aider?
+
+**Aider** é uma ferramenta de linha de comando que facilita a colaboração entre desenvolvedores e modelos de linguagem. Ele permite:
+
+- Editar código-fonte diretamente no terminal
+- Manter o histórico de conversas com a IA
+- Aplicar alterações específicas em arquivos
+- Integrar-se com repositórios Git
+- Suportar múltiplos modelos LLM
+
+O Aider funciona como um "pair programming" digital, onde o desenvolvedor descreve o que precisa fazer e a IA sugere ou implementa as alterações diretamente no código. Esta abordagem acelera o desenvolvimento enquanto mantém o controle total sobre as decisões técnicas.
+
+## Como o Aider auxilia no desenvolvimento
 
 - Criação de entidades e classes
 - Implementação de serviços e controladores
