@@ -31,6 +31,7 @@ O projeto segue a seguinte estrutura de pacotes:
 
 - **Empresa**: Cadastro de empresas com CNPJ e status
 - **Produto**: Cadastro de produtos com nome, preço e categoria
+- **Estoque**: Controle de estoque com quantidade, associado a Produto e Empresa
 
 ## Evolução dos Modelos LLM
 
@@ -65,11 +66,25 @@ O Aider funciona como um "pair programming" digital, onde o desenvolvedor descre
 
 ## Próximos Passos
 
-- Implementação das entidades restantes (Cliente, Fornecedor, Categoria, Venda, ItemVenda, Estoque)
+- Implementação das entidades restantes (Cliente, Fornecedor, Categoria, Venda, ItemVenda)
 - Desenvolvimento dos endpoints REST completos
 - Implementação de validações e regras de negócio
 - Adição de testes unitários e de integração
 - Configuração de segurança e autenticação
+
+## Configuração do Banco de Dados
+
+O projeto utiliza MySQL como banco de dados. As configurações de conexão estão no arquivo `src/main/resources/application.properties`:
+
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/bdcomercio
+spring.datasource.username=vitor
+spring.datasource.password=Vi1dolar
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+```
 
 ## Como Executar
 
