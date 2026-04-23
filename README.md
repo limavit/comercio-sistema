@@ -10,7 +10,7 @@ A solução foi arquitetada por **Limavit**, seguindo os princípios de arquitet
 
 ## Tecnologias Utilizadas
 
-- **Java 17+**: Linguagem de programação principal
+- **Java 21**: Linguagem de programação principal
 - **Spring Boot**: Framework para desenvolvimento de aplicações Java
 - **Spring Data JPA**: Abstração para acesso a dados
 - **Hibernate**: Implementação JPA para mapeamento objeto-relacional
@@ -32,6 +32,7 @@ O projeto segue a seguinte estrutura de pacotes:
 - **Empresa**: Cadastro de empresas com CNPJ e status
 - **Produto**: Cadastro de produtos com nome, preço e categoria
 - **Estoque**: Controle de estoque com quantidade, associado a Produto e Empresa
+- **Fornecedor**: Cadastro de fornecedores com nome, telefone e empresa
 
 ## Evolução dos Modelos LLM
 
@@ -66,7 +67,7 @@ O Aider funciona como um "pair programming" digital, onde o desenvolvedor descre
 
 ## Próximos Passos
 
-- Implementação das entidades restantes (Cliente, Fornecedor, Categoria, Venda, ItemVenda)
+- Implementação das entidades restantes (Cliente, Categoria, Venda, ItemVenda)
 - Desenvolvimento dos endpoints REST completos
 - Implementação de validações e regras de negócio
 - Adição de testes unitários e de integração
