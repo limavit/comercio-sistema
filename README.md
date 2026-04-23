@@ -78,8 +78,8 @@ O projeto utiliza MySQL como banco de dados. As configurações de conexão est�
 
 ```properties
 spring.datasource.url=jdbc:mysql://localhost:3306/bdcomercio
-spring.datasource.username=vitor
-spring.datasource.password=Vi1dolar
+spring.datasource.username=
+spring.datasource.password=
 spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 
 spring.jpa.hibernate.ddl-auto=update
