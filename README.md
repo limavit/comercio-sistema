@@ -30,6 +30,10 @@ O projeto segue a seguinte estrutura de pacotes:
 ## Entidades Implementadas
 
 - **Empresa**: Cadastro de empresas com CNPJ e status
+- **Usuario**: Cadastro de usuários com nome, email, empresa e perfil
+- **Perfil**: Cadastro de perfis com nome
+- **Cliente**: Cadastro de clientes com nome, telefone, email e empresa
+- **Categoria**: Cadastro de categorias com nome e empresa
 - **Produto**: Cadastro de produtos com nome, preço e categoria
 - **Estoque**: Controle de estoque com quantidade, associado a Produto e Empresa
 - **Fornecedor**: Cadastro de fornecedores com nome, telefone e empresa
@@ -67,7 +71,7 @@ O Aider funciona como um "pair programming" digital, onde o desenvolvedor descre
 
 ## Próximos Passos
 
-- Implementação das entidades restantes (Cliente, Categoria, Venda, ItemVenda)
+- Implementação das entidades restantes (Venda, ItemVenda)
 - Desenvolvimento dos endpoints REST completos
 - Implementação de validações e regras de negócio
 - Adição de testes unitários e de integração
