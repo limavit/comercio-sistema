@@ -1,12 +1,14 @@
 package br.com.sistema.comercio.service;
 
-import br.com.sistema.comercio.model.Categoria;
-import br.com.sistema.comercio.repository.CategoriaRepository;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import br.com.sistema.comercio.model.Categoria;
+import br.com.sistema.comercio.model.Empresa;
+import br.com.sistema.comercio.repository.CategoriaRepository;
 
 @Service
 public class CategoriaService {
@@ -49,11 +51,10 @@ public class CategoriaService {
         categoriaRepository.deleteById(id);
     }
     
-    public List<Categoria> getCategoriasByEmpresa(Long empresaId) {
-        return categoriaRepository.findByEmpresaId(empresaId);
+    @Transactional
+    public List<Categoria> getCategoriasByEmpresa(Empresa emp){
+    	
+    	return categoriaRepository.getCategoriasByEmpresa(emp);
     }
-    
-    public List<Categoria> getCategoriasAtivas() {
-        return categoriaRepository.findByAtivoTrue();
-    }
+  
 }
