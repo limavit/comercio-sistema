@@ -1,7 +1,10 @@
 package br.com.sistema.comercio.controller;
 
 import br.com.sistema.comercio.model.Categoria;
+import br.com.sistema.comercio.model.Empresa;
 import br.com.sistema.comercio.service.CategoriaService;
+import jakarta.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,16 +38,13 @@ public class CategoriaController {
     }
     
     @GetMapping("/empresa/{empresaId}")
-    public ResponseEntity<List<Categoria>> getCategoriasByEmpresa(@PathVariable Long empresaId) {
-        List<Categoria> categorias = categoriaService.getCategoriasByEmpresa(empresaId);
-        return ResponseEntity.ok(categorias);
+    public ResponseEntity<List<Categoria>> getCategoriasByEmpresa( @PathVariable Long empresaId) {
+        Empresa emp = new Empresa();
+        emp.setId(empresaId);
+        return ResponseEntity.ok(categoriaService.getCategoriasByEmpresa(emp));
     }
     
-    @GetMapping("/ativos")
-    public ResponseEntity<List<Categoria>> getCategoriasAtivas() {
-        List<Categoria> categorias = categoriaService.getCategoriasAtivas();
-        return ResponseEntity.ok(categorias);
-    }
+    
     
     @PutMapping("/{id}")
     public ResponseEntity<Categoria> updateCategoria(@PathVariable Long id, @RequestBody Categoria categoria) {
@@ -60,8 +60,12 @@ public class CategoriaController {
     }
     
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCategoria(@PathVariable Long id) {
-        categoriaService.deleteCategoria(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<?> deleteCategoria(@PathVariable Long id) {
+        try {
+            categoriaService.deleteCategoria(id);
+            return ResponseEntity.noContent().build();
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

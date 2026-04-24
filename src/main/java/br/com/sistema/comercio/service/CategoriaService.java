@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import br.com.sistema.comercio.model.Categoria;
 import br.com.sistema.comercio.model.Empresa;
 import br.com.sistema.comercio.repository.CategoriaRepository;
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class CategoriaService {
@@ -48,6 +49,9 @@ public class CategoriaService {
     
     @Transactional
     public void deleteCategoria(Long id) {
+        if (!categoriaRepository.existsById(id)) {
+            throw new EntityNotFoundException("Categoria não encontrada: " + id);
+        }
         categoriaRepository.deleteById(id);
     }
     
