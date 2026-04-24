@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
@@ -20,10 +21,20 @@ class ClienteServiceTest {
 
     @InjectMocks
     private ClienteService clienteService;
+    
+    private Empresa empresa;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
+        
+        // Criar empresa para testes
+        empresa = new Empresa();
+        empresa.setId(1L);
+        empresa.setNome("Empresa Teste");
+        empresa.setCnpj("12345678901234");
+        empresa.setAtivo(true);
+        empresa.setCreatedAt(LocalDateTime.now());
     }
 
     @Test
@@ -32,6 +43,7 @@ class ClienteServiceTest {
         cliente.setNome("Cliente Teste");
         cliente.setTelefone("(11) 1234-5678");
         cliente.setEmail("cliente@teste.com");
+        cliente.setEmpresa(empresa);
         cliente.setAtivo(true);
         
         when(clienteRepository.save(cliente)).thenReturn(cliente);
@@ -42,6 +54,7 @@ class ClienteServiceTest {
         assertEquals("Cliente Teste", result.getNome());
         assertEquals("(11) 1234-5678", result.getTelefone());
         assertEquals("cliente@teste.com", result.getEmail());
+        assertEquals(empresa, result.getEmpresa());
         assertTrue(result.getAtivo());
         verify(clienteRepository, times(1)).save(cliente);
     }
@@ -50,6 +63,7 @@ class ClienteServiceTest {
     void testCreateClienteSemNome() {
         Cliente cliente = new Cliente();
         cliente.setNome("");
+        cliente.setEmpresa(empresa);
         
         assertThrows(IllegalArgumentException.class, () -> {
             clienteService.createCliente(cliente);
@@ -77,6 +91,7 @@ class ClienteServiceTest {
         cliente.setId(1L);
         cliente.setNome("Cliente Teste");
         cliente.setTelefone("(11) 1234-5678");
+        cliente.setEmpresa(empresa);
         
         when(clienteRepository.findById(1L)).thenReturn(Optional.of(cliente));
         
@@ -86,6 +101,7 @@ class ClienteServiceTest {
         assertEquals(1L, result.getId());
         assertEquals("Cliente Teste", result.getNome());
         assertEquals("(11) 1234-5678", result.getTelefone());
+        assertEquals(empresa, result.getEmpresa());
         verify(clienteRepository, times(1)).findById(1L);
     }
 
@@ -96,6 +112,7 @@ class ClienteServiceTest {
         existingCliente.setNome("Cliente Antigo");
         existingCliente.setTelefone("(11) 1111-1111");
         existingCliente.setEmail("antigo@teste.com");
+        existingCliente.setEmpresa(empresa);
         existingCliente.setAtivo(true);
         
         Cliente updatedCliente = new Cliente();
@@ -113,6 +130,7 @@ class ClienteServiceTest {
         assertEquals("Cliente Atualizado", result.getNome());
         assertEquals("(11) 2222-2222", result.getTelefone());
         assertEquals("novo@teste.com", result.getEmail());
+        assertEquals(empresa, result.getEmpresa());
         assertFalse(result.getAtivo());
         verify(clienteRepository, times(1)).save(existingCliente);
     }
@@ -124,6 +142,7 @@ class ClienteServiceTest {
         existingCliente.setNome("Cliente Antigo");
         existingCliente.setTelefone("(11) 1111-1111");
         existingCliente.setEmail("antigo@teste.com");
+        existingCliente.setEmpresa(empresa);
         existingCliente.setAtivo(true);
         
         Cliente updatedCliente = new Cliente();
@@ -139,6 +158,7 @@ class ClienteServiceTest {
         assertEquals("Cliente Atualizado", result.getNome());
         assertEquals("(11) 1111-1111", result.getTelefone()); // Não deve mudar
         assertEquals("novo@teste.com", result.getEmail());
+        assertEquals(empresa, result.getEmpresa()); // Não deve mudar
         assertTrue(result.getAtivo()); // Não deve mudar
         verify(clienteRepository, times(1)).save(existingCliente);
     }
@@ -158,9 +178,6 @@ class ClienteServiceTest {
 
     @Test
     void testGetClientesByEmpresa() {
-        Empresa empresa = new Empresa();
-        empresa.setId(1L);
-        
         Cliente cliente1 = new Cliente();
         cliente1.setId(1L);
         cliente1.setNome("Cliente 1");
@@ -181,6 +198,8 @@ class ClienteServiceTest {
         assertEquals(2, result.size());
         assertEquals("Cliente 1", result.get(0).getNome());
         assertEquals("Cliente 2", result.get(1).getNome());
+        assertEquals(empresa, result.get(0).getEmpresa());
+        assertEquals(empresa, result.get(1).getEmpresa());
         verify(clienteRepository, times(1)).findByEmpresaId(1L);
     }
 
@@ -189,11 +208,13 @@ class ClienteServiceTest {
         Cliente cliente1 = new Cliente();
         cliente1.setId(1L);
         cliente1.setNome("Cliente 1");
+        cliente1.setEmpresa(empresa);
         cliente1.setAtivo(true);
         
         Cliente cliente2 = new Cliente();
         cliente2.setId(2L);
         cliente2.setNome("Cliente 2");
+        cliente2.setEmpresa(empresa);
         cliente2.setAtivo(true);
         
         List<Cliente> clientes = List.of(cliente1, cliente2);
@@ -206,6 +227,8 @@ class ClienteServiceTest {
         assertEquals(2, result.size());
         assertEquals("Cliente 1", result.get(0).getNome());
         assertEquals("Cliente 2", result.get(1).getNome());
+        assertEquals(empresa, result.get(0).getEmpresa());
+        assertEquals(empresa, result.get(1).getEmpresa());
         verify(clienteRepository, times(1)).findByAtivoTrue();
     }
 }
