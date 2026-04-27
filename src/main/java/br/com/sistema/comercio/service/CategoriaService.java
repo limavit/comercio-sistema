@@ -19,6 +19,11 @@ public class CategoriaService {
     
     @Transactional
     public Categoria createCategoria(Categoria categoria) {
+    	if (categoriaRepository.existsByNomeIgnoreCaseAndEmpresa(
+    	        categoria.getNome(), categoria.getEmpresa())) {
+    	    throw new IllegalArgumentException(
+    	        "Já existe uma categoria com este nome nesta empresa");
+    	}
         if (categoria.getNome() == null || categoria.getNome().trim().isEmpty()) {
             throw new IllegalArgumentException("Nome da categoria é obrigatório");
         }
@@ -28,8 +33,9 @@ public class CategoriaService {
         return categoriaRepository.save(categoria);
     }
     
+    @Transactional(readOnly = true)
     public Categoria getCategoriaById(Long id) {
-        return categoriaRepository.findById(id).orElse(null);
+        return categoriaRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Categoria não encontrada: " + id));
     }
     
     @Transactional
@@ -55,7 +61,7 @@ public class CategoriaService {
         categoriaRepository.deleteById(id);
     }
     
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Categoria> getCategoriasByEmpresa(Empresa emp){
     	
     	return categoriaRepository.getCategoriasByEmpresa(emp);

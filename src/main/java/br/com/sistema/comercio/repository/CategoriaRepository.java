@@ -13,5 +13,7 @@ public interface CategoriaRepository extends JpaRepository<Categoria, Long> {
 	
 	
 	List<Categoria> getCategoriasByEmpresa(Empresa emp);
+
+	boolean existsByNomeIgnoreCaseAndEmpresa(String nome, Empresa empresa);
 }
 

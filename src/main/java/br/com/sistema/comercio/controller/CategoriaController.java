@@ -15,8 +15,12 @@ import java.util.List;
 @RequestMapping("/categorias")
 public class CategoriaController {
     
-    @Autowired
-    private CategoriaService categoriaService;
+    
+    private final CategoriaService categoriaService;
+    public CategoriaController(
+            CategoriaService categoriaService) {
+        this.categoriaService = categoriaService;
+    }
     
     @PostMapping
     public ResponseEntity<Categoria> createCategoria(@RequestBody Categoria categoria) {

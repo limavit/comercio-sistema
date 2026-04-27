@@ -1,6 +1,9 @@
 package br.com.sistema.comercio.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 import java.time.LocalDateTime;
 
 @Entity
@@ -10,10 +13,12 @@ public class Categoria {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
+    @NotBlank(message = "Nome é obrigatório")
     private String nome;
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "empresa_id", nullable = false)
+    @NotNull(message = "Empresa é obrigatório")
     private Empresa empresa;
     
     private Boolean ativo = true;
