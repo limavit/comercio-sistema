@@ -101,6 +101,10 @@ mvn spring-boot:run
 
 O sistema estará disponível em `http://localhost:8080`.
 
+## Licença
+
+Este projeto está licenciado sob a Licença Apache 2.0. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+
 ## Contribuição
 
 Este projeto está em desenvolvimento contínuo, com contribuições tanto do time de desenvolvimento quanto da parceria com o Aider.
