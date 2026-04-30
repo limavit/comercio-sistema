@@ -2,7 +2,7 @@ package br.com.sistema.comercio.service;
 
 import br.com.sistema.comercio.model.Estoque;
 import br.com.sistema.comercio.repository.EstoqueRepository;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
