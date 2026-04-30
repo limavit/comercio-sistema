@@ -2,6 +2,8 @@ package br.com.sistema.comercio.service;
 
 import br.com.sistema.comercio.model.Estoque;
 import br.com.sistema.comercio.repository.EstoqueRepository;
+import jakarta.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,5 +34,33 @@ public class EstoqueService {
     
     public void deleteEstoque(Long id) {
         estoqueRepository.deleteById(id);
+    }
+    
+    @Transactional
+    public void atualizarEstoque(Long produtoId, Integer quantidade) {
+        Estoque estoque = getEstoqueByProduto(produtoId);
+        if (estoque != null) {
+            Integer novaQuantidade = estoque.getQuantidade() - quantidade;
+            if (novaQuantidade < 0) {
+                throw new RuntimeException("Estoque insuficiente para o produto ID: " + produtoId);
+            }
+            estoque.setQuantidade(novaQuantidade);
+            estoqueRepository.save(estoque);
+        }
+    }
+    
+    @Transactional
+    public void adicionarEstoque(Long produtoId, Integer quantidade) {
+        Estoque estoque = getEstoqueByProduto(produtoId);
+        if (estoque != null) {
+            Integer novaQuantidade = estoque.getQuantidade() + quantidade;
+            estoque.setQuantidade(novaQuantidade);
+            estoqueRepository.save(estoque);
+        }
+    }
+    
+    @Transactional(readOnly = true)
+    public Estoque getEstoqueByProduto(Long produtoId) {
+        return estoqueRepository.findByProdutoId(produtoId);
     }
 }
