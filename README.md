@@ -93,6 +93,8 @@ spring.jpa.show-sql=true
 
 ## Como Executar
 
+### Execução Local
+
 Para executar o projeto localmente:
 
 ```bash
@@ -100,6 +102,37 @@ mvn spring-boot:run
 ```
 
 O sistema estará disponível em `http://localhost:8080`.
+
+### Execução com Docker
+
+Para executar o projeto em um container Docker:
+
+```bash
+docker build -t comercio-sistema .
+docker run --add-host=host.docker.internal:host-gateway -p 8080:8080 comercio-sistema
+```
+
+O sistema estará disponível em `http://localhost:8080`.
+
+### Configuração do Banco de Dados
+
+Para permitir conexões externas ao MySQL e acesso remoto para o usuário 'vitor', execute os seguintes comandos no MySQL:
+
+```sql
+-- Criar usuário vitor com acesso remoto
+CREATE USER 'vitor'@'%' IDENTIFIED BY 'senha_segura';
+
+-- Conceder privilégios completos no banco de dados
+GRANT ALL PRIVILEGES ON bdcomercio.* TO 'vitor'@'%';
+
+-- Atualizar privilégios
+FLUSH PRIVILEGES;
+
+-- Permitir conexões externas (descomente no my.cnf ou my.ini)
+# bind-address = 0.0.0.0
+```
+
+**Importante:** Para que a conexão do container com o banco de dados funcione corretamente, é necessário usar o parâmetro `--add-host=host.docker.internal:host-gateway` no comando `docker run`, como mostrado acima.
 
 ## Licença
 
